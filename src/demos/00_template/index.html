@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>React - Template</title>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
     <script src="../../js/react.min.js"></script>
     <script src="../../js/react-dom.min.js"></script>
     <script src="../../js/browser.min.js"></script>
@@ -14,23 +15,31 @@
 
     <script type="text/babel">
 
-        let Movie = React.createClass({
+        let Comment = React.createClass({
+            edit: function () {
+                alert("editing comment");
+            },
+            remove: function () {
+                alert("removing comment");
+            },
             render: function () {
                 return (
-                    <div>
-                        <h1>{ this.props.title }</h1>
-                        <h2>{ this.props.genre }</h2>
+                    <div className="commentContainer">
+                        <div className="commentText">{ this.props.children }</div>
+                        <button onClick={ this.edit } className="button-primary">Edit</button>
+                        <button onClick={ this.remove } className="button-danger">Remove</button>
                     </div>
                 );
             }
+
         });
 
 
         ReactDOM.render(
-            <div>
-                <Movie title="Avatar" genre="action" />
-                <Movie title="Hello World" genre="IT" />
-                <Movie title="Captain America" genre="action" />
+            <div className="board">
+                <Comment>Hello World</Comment>
+                <Comment>Test Comment</Comment>
+                <Comment>Sample Text</Comment>
             </div>
             , document.getElementById("container"));
 
