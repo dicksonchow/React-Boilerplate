@@ -15,38 +15,62 @@
 
     <script type="text/babel">
 
-        let CheckBox = React.createClass({
+        let Comment = React.createClass({
 
             getInitialState: function () {
-                return { checked: true };
+                return { editing: false };
             },
 
-            handleChecked: function () {
-                this.setState({ checked: !this.state.checked });
+            edit: function () {
+                this.setState({ editing: true })
+            },
+
+            remove: function () {
+                alert("removing comment");
+            },
+
+            save: function () {
+                let val = this.refs.newText.value;
+                console.log(`New Comment: ${val}!`);
+                this.setState({ editing: false })
+            },
+
+            renderNormal: function () {
+                return (
+                        <div className="commentContainer">
+                            <div className="commentText">{ this.props.children }</div>
+                            <button onClick={ this.edit } className="button-primary">Edit</button>
+                            <button onClick={ this.remove } className="button-danger">Remove</button>
+                        </div>
+                );
+            },
+
+            renderForm: function () {
+                return (
+                        <div className="commentContainer">
+                            <textarea ref="newText" defaultValue={ this.props.children }></textarea>
+                            <button onClick={ this.save } className="button-success">Save</button>
+                        </div>
+                );
             },
 
             render: function () {
-                let msg;
-
-                if (this.state.checked) {
-                    msg = "checked";
-                }
-                else {
-                    msg = "unchecked";
-                }
-
-                return (
-                    <div>
-                        <input type="checkbox" onChange={ this.handleChecked } defaultChecked={ this.state.checked } />
-                        <h3>Checkbox is {msg}</h3>
-                    </div>
-                );
+                if (this.state.editing)
+                    return this.renderForm();
+                else
+                    return this.renderNormal();
             }
+
         });
 
 
-        ReactDOM.render(<CheckBox/>, document.getElementById("container"));
-
+        ReactDOM.render(
+                <div className="board">
+                    <Comment>Hello World</Comment>
+                    <Comment>Test Comment</Comment>
+                    <Comment>Sample Text</Comment>
+                </div>
+            , document.getElementById("container"));
 
     </script>
 
