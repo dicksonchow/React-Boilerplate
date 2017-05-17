@@ -15,7 +15,7 @@
 
     <script type="text/babel">
 
-        let Comment = React.createClass({
+        let Comment = React.createClass( {
 
             getInitialState: function () {
                 return { editing: false };
@@ -64,12 +64,37 @@
         });
 
 
+        let Board = React.createClass({
+
+            getInitialState: function () {
+                return {
+                    comments: [
+                        'Hello World',
+                        'Test Comment',
+                        'Sample Text',
+                        'Hey all'
+                    ]
+                }
+            },
+
+
+            render: function () {
+                return (
+                    <div className="board">
+                        {
+                            this.state.comments.map(function (item, i) {
+                                return (<Comment key={i}>{item}</Comment>)
+                            })
+                        }
+                    </div>
+                );
+            }
+
+        });
+
+
         ReactDOM.render(
-                <div className="board">
-                    <Comment>Hello World</Comment>
-                    <Comment>Test Comment</Comment>
-                    <Comment>Sample Text</Comment>
-                </div>
+            <Board/>
             , document.getElementById("container"));
 
     </script>
